@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { axiosInstance } from '../Utils/API';
 import ShowHotelCard from '../common/ShowHotelCard';
 
 const ShowHotels = (props) => {
@@ -10,8 +10,8 @@ const ShowHotels = (props) => {
 	// useEffect to retireve each hotel based on their ID//
 	useEffect(() => {
 		const getHotel = async () => {
-			let res = await axios.get(
-				`https://api.whitbread.co.uk/reviews?hotel-codes=${props.match.params.id}`
+			let res = await axiosInstance.get(
+				`?hotel-codes=${props.match.params.id}`
 			);
 			setHotel(res.data);
 		};
@@ -47,48 +47,3 @@ const ShowHotels = (props) => {
 };
 
 export default ShowHotels;
-
-// {
-// 	hotel.map((item) => (
-// 		<div className='col'>
-// 			<div
-// 				className='card text-dark bg-warning'
-// 				style={{ width: '50rem' }}>
-// 				<div className='card-header fw-bold'>{item.name}</div>
-// 				<div className='card-body'>
-// 					<h5>{item.address}</h5>
-// 					<p>
-// 						<span className='fw-bold'>Hotel Code</span>:{' '}
-// 						{item.hotelCode}
-// 					</p>
-// 					<p>
-// 						<span className='fw-bold'>Average Rating</span>:{' '}
-// 						{item.rating}
-// 					</p>
-// 				</div>
-// 				<ul className='list-group list-group-flush'>
-// 					{item.reviews.map((item) => (
-// 						<li className='list-group-item'>
-// 							<div className='fw-bold'>Review</div>
-// 							<ul className='list-group list-group-flush'>
-// 								<li className='list-group-item'>
-// 									<span className='fw-bold'>Summary</span>:{' '}
-// 									{item.title}
-// 								</li>
-// 								<li className='list-group-item'>{item.text}</li>
-// 								<li className='list-group-item'>
-// 									<span className='fw-bold'>Rating</span>:{' '}
-// 									{item.rating}
-// 								</li>
-// 								<li className='card-footer list-group-item'>
-// 									<span className='fw-bold'>Date</span>:{' '}
-// 									{new Date(item.publishedDate).toUTCString()}
-// 								</li>
-// 							</ul>
-// 						</li>
-// 					))}
-// 				</ul>
-// 			</div>
-// 		</div>
-// 	));
-// }
