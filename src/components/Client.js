@@ -72,7 +72,8 @@ function Client() {
 						multipleHotel.map((item) => (
 							<Link
 								key={item.hotelCode}
-								to={`/hotels/${item.hotelCode}`}>
+								to={`/hotels/${item.hotelCode}`}
+								className='text-decoration-none'>
 								<HotelCard
 									key={item.locationId}
 									name={item.name}
