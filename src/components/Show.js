@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { axiosInstance } from '../Utils/API';
 import ShowHotelCard from '../common/ShowHotelCard';
+import HomeArrow from './HomeArrow';
 
 const ShowHotels = (props) => {
 	const [hotel, setHotel] = useState([]);
@@ -10,10 +11,14 @@ const ShowHotels = (props) => {
 	// useEffect to retireve each hotel based on their ID//
 	useEffect(() => {
 		const getHotel = async () => {
-			let res = await axiosInstance.get(
-				`?hotel-codes=${props.match.params.id}`
-			);
-			setHotel(res.data);
+			try {
+				let res = await axiosInstance.get(
+					`?hotel-codes=${props.match.params.id}`
+				);
+				setHotel(res.data);
+			} catch (err) {
+				console.log(err);
+			}
 		};
 		getHotel();
 	}, [props.match.params.id]);
@@ -24,11 +29,12 @@ const ShowHotels = (props) => {
 	};
 
 	console.log('get a hotel', hotel);
-	if (!hotel) return 'Loading...';
+	if (hotel.length === 0) return <h4>Loading...</h4>;
 	return (
 		<>
 			<div className='container'>
 				<div className='row mt-4'>
+					<HomeArrow />
 					{/* passed item as props to ShowHotelCard component */}
 					{hotel.length > 0 &&
 						hotel.map((item) => (

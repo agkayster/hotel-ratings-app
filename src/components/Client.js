@@ -45,7 +45,7 @@ function Client() {
 		});
 	};
 
-	if (allHotelsData.length < 0) return 'Loading....';
+	if (allHotelsData.length === 0) return <h4>Loading....</h4>;
 	return (
 		<>
 			<div className='container'>
